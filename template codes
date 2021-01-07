@@ -1,0 +1,21 @@
+# класс матрица
+class MyMatrix:
+    # базовый контсруктор матрицы, создающий матрицу из двух поступающих списков
+    def __init__(self, matrix):
+        self.matrix = matrix
+
+    # переопределяем метод str для вывода матрицы построчно в правильном порядке
+    def __str__(self):
+        for i in range(len(self.matrix)):
+            for j in range(len(self.matrix[i])):
+                # если i,j то матрица получается транспонированной?
+                print(self.matrix[j][i], end="\t") 
+            print(end="\n")micro shop
+            rows = i+1
+            columns = j+1
+        return self.matrix
+
+# более простая реализация вывода матрицы
+enter_matrix2 = MyMatrix(enter_matrix)
+for i in enter_matrix2.matrix:
+    print(*i)
