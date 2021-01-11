@@ -1,1 +1,55 @@
-# main file
+# класс матрица
+class MyMatrix:
+
+    # метод инициализации класса (без обязательных полей) и определения полей, которые понадобятся позже
+    def __init__(self):
+        self.list1 = []
+        self.list2 = []
+        self.matrix1 = list(list())
+        self.matrix2 = list(list())
+
+    # метод сложения матриц
+    def add(self, matrix1, matrix2):
+        self.matrix1 = matrix1
+        self.matrix2 = matrix2
+        self.sum = self.matrix1
+        for i in range(len(self.matrix1)):
+            for j in range (len(self.matrix1[i])):
+                self.sum[i][j] = self.matrix1[i][j] + self.matrix2[i][j]
+        return self.sum
+
+    # статический метод, не получающий доступа к классу
+    @staticmethod
+    def staticmethod(matrix1s, matrix2s):
+        matrix_sum = matrix1s
+        for i in range(len(matrix1s)):
+            for j in range(len(matrix1s[i])):
+                matrix_sum[i][j] = matrix1s[i][j] + matrix2s[i][j]
+        return matrix_sum
+
+    def make_matrix(self, list1, list2):
+        self.list1 = list1
+        self.list2 = list2
+        self.matrix = list([list1, list2])
+        return self.matrix
+
+# формирование обьекта класса матрица
+enter_matrix2 = [[1,2],[3,4]]
+list11 = [1,2]
+list22 = [3,4]
+
+matrix_new = MyMatrix()
+
+print("matrix made from list1 & list2:")
+for i in matrix_new.make_matrix(list11,list22):
+    print(*i, sep="\t", end="\n")
+
+#  сложение матрицы динамическим методом
+print("matrix add dynamic method:")
+for i in matrix_new.add(enter_matrix2, enter_matrix2):
+    print(*i, sep="\t", end="\n")
+
+# сложение матрицы статическим методом
+print("matrix add static method:")
+for i in matrix_new.staticmethod(enter_matrix2, enter_matrix2):
+    print(*i, sep="\t", end="\n")
