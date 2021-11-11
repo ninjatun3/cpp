@@ -13,10 +13,15 @@ class File():
 
     # метод открытия файла
     def open_file(self):
-        print(f'file opening: {self.__filename}')
-        with open(self.__filename) as file_object:
-            contents = file_object.read()
-            print(contents)
+        print(f'trying file opening: {self.__filename}')
+        # проверка существования файла
+        try:
+            with open(self.__filename) as file_object:
+                contents = file_object.read()
+                print(contents)
+                print(f'{self.__filename} opened')
+        except FileNotFoundError:
+            print(f'{self.__filename} doesnt exist')
 
     # метод создания файла
     def create_file(self, new_file_name, new_file_type):
@@ -28,6 +33,7 @@ class File():
             print(contents)
 
     # метод для удаления файла
+    # переписать с pathlib
     def delete_file(self):
         if os.path.isfile(self.__filename):
             os.remove(self.__filename)
@@ -36,3 +42,7 @@ class File():
             print(f'file {self.__filename} not exists')
 
 file = File('name', 'txt')
+file.open_file()
+file.create_file('name', 'txt')
+file.open_file()
+file.delete_file()
