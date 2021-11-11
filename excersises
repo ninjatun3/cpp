@@ -1,26 +1,38 @@
-# создание класса
-class User():
+# модуль работы с файлами
 
-    def __init__(self, first_name, last_name, age, country):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.age = age
-        self.country = country
+import os # импорт модуля для удаления файлов и каталогов
 
-    def describe_user(self):
-        if self.age > 0 and self.age <= 1:
-            print(f"my name is {self.first_name} {self.last_name}, i'm from {self.country} and {self.age} year old")
-        elif self.age > 1:
-            print(
-                f"my name is {self.first_name} {self.last_name}, i'm from {self.country} and {self.age} years old")
+# базовый класс работы с файлами
+class File():
+
+    # конструктор экземпляра класса
+    def __init__(self, name, type):
+        self.name = name
+        self.type = type
+        self.__filename = str(self.name + '.' + self.type)
+
+    # метод открытия файла
+    def open_file(self):
+        print(f'file opening: {self.__filename}')
+        with open(self.__filename) as file_object:
+            contents = file_object.read()
+            print(contents)
+
+    # метод создания файла
+    def create_file(self, new_file_name, new_file_type):
+        self.new_file_name = new_file_name
+        self.new_file_type = new_file_type
+        self.__new_filename = str(self.new_file_name + '.' + self.new_file_type)
+        with open(self.__filename, 'w+') as file_object:
+            contents = file_object.read()
+            print(contents)
+
+    # метод для удаления файла
+    def delete_file(self):
+        if os.path.isfile(self.__filename):
+            os.remove(self.__filename)
+            print(f'file {self.__filename} deleted  ')
         else:
-            print("please enter valid age")
+            print(f'file {self.__filename} not exists')
 
-    def greet_user(self):
-        print(f"hi {self.first_name} {self.last_name}!")
-
-user_1 = User("mark", "jackson", 53, "usa")
-user_2 = User("reggie", "miller", 47, "usa")
-
-print(user_1.describe_user())
-print(user_1.greet_user())
+file = File('name', 'txt')
