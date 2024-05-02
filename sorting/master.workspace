@@ -4,13 +4,13 @@
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
-      <Project Name="master" ConfigName="Debug"/>
       <Project Name="sorting" ConfigName="Debug"/>
+      <Project Name="master" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
-      <Project Name="master" ConfigName="Release"/>
       <Project Name="sorting" ConfigName="Release"/>
+      <Project Name="master" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
