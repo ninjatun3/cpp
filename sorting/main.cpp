@@ -1,17 +1,18 @@
-// sorting 
+// sorting
 
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
+
 template <typename T>
 void Swap(T& a, T& b) {
-	T buf;
-	buf = a;
+	T buf = a;
 	a = b;
 	b = buf;
 }
+
 
 template <typename T>
 void InsertSort(vector<T>& a) {
@@ -22,6 +23,7 @@ void InsertSort(vector<T>& a) {
 		}
 	}
 }
+
 
 template <typename T>
 void SelectSort(vector<T>& a) {
@@ -36,8 +38,10 @@ void SelectSort(vector<T>& a) {
 }
 
 
+
 int main() {
-	vector<double> a{3, 5, 1, 1, 2, 4, 4};
+	
+	vector<double> a{3, 5, 1, 1, 4, 2, 2};
 	
 	InsertSort(a);
 	for (int i = 0; i < a.size(); i++) {
@@ -45,11 +49,11 @@ int main() {
 	}
 	
 	cout << "\n";
-	a = {3, 5, 1, 1, 2, 4, 4};
+	a = {3, 5, 1, 1, 4, 2, 2};
 	SelectSort(a);
 	for (int i = 0; i < a.size(); i++) {
 		cout << a[i] << " ";
-	}	
+	}
 	
 	cout << "\n";
 	return 0;
