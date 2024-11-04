@@ -5,6 +5,8 @@
 
 using namespace std;
 
+const int RUN = 32;
+
 template <typename T>
 void Swap(T& a, T& b) {
 	T buf = a;
@@ -15,22 +17,7 @@ void Swap(T& a, T& b) {
 bool comparator(const int& a, const int& b) {
 	return (a > b);
 }
-
-int func(vector<int>& citations) {
-	int n = citations.size();
-        int left = 0;
-        int right = n - 1;
-        int mid;
-        while (left <= right) {
-            mid = (right + left) / 2;
-            if (citations[mid] < n - mid)
-                left = mid++;
-            else 
-                right = mid--;
-        }
-        return n - left;
-}
-
+	
 template <typename T>
 void BinarySearch(T& a, int key) {
 	int n = a.size();
@@ -110,6 +97,7 @@ void InsertSort(T& a) {
 template <typename T>
 void QuickSort(T& a, int left, int right) {	
 	int n = a.size();
+	
 }
 
 template <typename T>
@@ -120,77 +108,7 @@ void CombSort(T& a) {
 template <typename T>
 void SelectSort(T& a) {
 	int n = a.size();
-}
-
-const int RUN = 32;
-
-template <typename T>
-void insertTimSort(T& a, int left, int right) {
-	for (int i = left + 1; i <= right; i++) {
-		int temp = a[i];
-		int j = i - 1;
-		for (j; j >= left && a[j] > temp; j--)
-			a[j + 1] = a[j];
-		a[j + 1] = temp;
-	}
-}
-
-template <typename T>
-void mergeTimSort(T& a, int l, int m, int r) {
-	int len1 = m - l + 1;
-	int len2 = r - m;
 	
-	T left(len1);
-	T right(len2);
-	
-	for (int i = 0; i < len1; i++)
-		left[i] = a[l + i];
-	
-	for (int i = 0; i < len2; i++)
-		right[i] = a[m + l + i];
-		
-	int i = 0;
-	int j = 0;
-	int k = l;
-	
-	// соединение в один массив
-	while (i < len1 && j < len2) {
-		if (left[i] <= right[j]) {
-			a[k] = left[i];
-			i++;
-		}
-		else {
-			a[k] = right[j];
-			j++;
-		}
-		k++;}
-	
-	// скопировать оставшиеся элементы из левого и правого массива
-	while (i < len1) {
-		a[k] = left[i];
-		k++;
-		i++; }
-	while (j < len2) {
-		a[k] = right[j];
-		k++;
-		j++; }
-}
-
-template <typename T>
-void TimSort(T& a, int n) {
-	// сортировка отдельных массивов размером RUN
-	for (int i = 0; i < n; i += RUN)
-		insertTimSort(a, i, min((i + RUN - 1), (n - 1)));
-	
-	// соединение начиная с размера RUN 32
-	for (int size = RUN; size < n; size = 2 * size) {
-		for (int left = 0; left < n; left += 2 * size) {
-			int mid = left + size - 1;
-			int right = min((left + 2 * size - 1), (n - 1));
-			if (mid < right)
-				mergeTimSort(a, left, mid, right);
-		}
-	}
 }
 
 template <typename T>
@@ -205,15 +123,65 @@ void ShellSort(T& a) {
 }
 
 template <typename T>
+void merge_test(vector<T> a, int left, int right) {
+	if (left >= right) return;
+	if (right == left + 1 && a[left] > a[right]) {
+		Swap(a[left], a[right]);
+		return;
+	}
+	int it1 = 0;
+	int it2 = 0;
+	int mid = (left + right) / 2;
+	
+	vector<T> temp;
+	
+	while (left + it1 <= mid && mid + it2 <= right) {
+		if (a[left + it1] < a[mid + it2]) {
+			temp[it1 + it2] = a[left + it1];
+			it1++;
+		} 
+	}
+}
+
+template <typename T>
+void merge(vector<T>& a, int left, int mid, int right) {
+	if (left >= right) return;
+	if (right == left + 1 && a[left] > a[right]) {
+		Swap(a[left], a[right]);
+		return;	}
+	int iter1 = 0;
+	int iter2 = 0;
+	
+	vector<T> result(right - left);
+	
+	while (left + iter1 < mid && mid + iter2 < right) {
+		if (a[left + iter1] < a[mid + iter2]) {
+			result[iter1 + iter2] = a[left + iter1];
+			iter1++;
+		} else {
+			result[iter1 + iter2] = a[mid + iter2];
+			iter2++; }	}
+	
+	while (left + iter1 < mid) {
+		result[iter1 + iter2] = a[left + iter1];
+		iter1++; }
+	
+	while (mid + iter2 < right) {
+		result[iter1 + iter2] = a[mid + iter2];
+		iter2++; }
+	
+	for (int i = 0; i < iter1 + iter2; i++) {
+		a[left + i] = result[i]; }
+}
+
+template <typename T>
 void MergeSortRecursive(vector<T>& a, int left, int right) {
 	if (left == right) return;
-	
-	// рекурсивный спуск до массива из двух элементов
-	int mid = (left + right) / 2;
-	MergeSortRecursive(a, left, mid);
+	int mid = (left + right) / 2; // рекурсивный спуск до массива из двух элементов
+	MergeSortRecursive(a, left, mid); 
 	MergeSortRecursive(a, mid + 1, right);
-	
-	// слияние
+	merge(a, left, mid, right);
+/*	// слияние
 	vector<T> temp;
 			
 	for (int i = left, j = mid + 1; i <= mid || j <= right;) {
@@ -230,46 +198,50 @@ void MergeSortRecursive(vector<T>& a, int left, int right) {
 	for (int i = 0; i < temp.size(); i++) {
 		a[left + i] = temp[i];
 	}
+*/
 }
 
-template <typename T>
-void merge(vector<T>& a, int left, int mid, int right) {
-	int iter1 = 0;
-	int iter2 = 0;
-	vector<T> result(right - left);
+void merge_test(vector<int>& a, int left, int right) {
+	if (left >= right) return;
 	
-	while (left + iter1 < mid && mid + iter2 < right) {
-		if (a[left + iter1] < a[mid + iter2]) {
-			result[iter1 + iter2] = a[left + iter1];
-			iter1++;
-		} else {
-			result[iter1 + iter2] = a[mid + iter2];
-			iter2++;
-		}
+	int mid = (left + right) / 2;
+	merge_test(a, left, mid);
+	merge_test(a, mid + 1, right);
+	
+	vector<int> temp;
+	for (int i = left, j = mid + 1; i <= mid, j <= right;) {
+		if (i > mid) temp.push_back(a[j++]);
+		else if (j > mid) temp.push_back(a[i++]);
+		else if (a[i] <= a[j]) temp.push_back(a[i++]);
+		else temp.push_back(a[j++]);
 	}
 	
-	while (left + iter1 < mid) {
-		result[iter1 + iter2] = a[left + iter1];
-		iter1++;
-	}
-	
-	while (mid + iter2 < right) {
-		result[iter1 + iter2] = a[mid + iter2];
-		iter2++;
-	}
-	
-	for (int i = 0; i < iter1 + iter2; i++) {
-		a[left + i] = result[i];
+	for (int i = 0; i < temp.size(); i++) {
+		a[left + i] = temp[i];
 	}
 }
 
 template <typename T>
-void MergeSortIterative(T& a) {
-	int n = a.size();
+void insertTimSort(T& a, int left, int right) {
+	for (int i = left + 1; i <= right; i++) {
+		for (int j = i; j >= left && a[j] < a[j - 1]; j--)
+			Swap(a[j], a[j - 1]);
+	}
+}
+
+template <typename T>
+void TimSort(T& a, int n) {
+	// сортировка отдельных массивов размером RUN
+	for (int i = 0; i < n; i += RUN)
+		insertTimSort(a, i, min((i + RUN - 1), (n - 1)));
 	
-	for (int i = 1; i < n; i *= 2) {
-		for (int j = 0; j < n; j += i * 2) {
-			merge(a, j, j + i, min(j + i * 2, n));
+	// соединение начиная с размера RUN 32
+	for (int size = RUN; size < n; size = 2 * size) {
+		for (int left = 0; left < n; left += 2 * size) {
+			int mid = left + size - 1;
+			int right = min((left + 2 * size - 1), (n - 1));
+			if (mid < right)
+				merge(a, left, mid, right);
 		}
 	}
 }
@@ -282,6 +254,7 @@ int main() {
 	for (int i = 0; i < a.size(); i++) {
 		cout << a[i] << " ";
 	}
+	cout << "\n==========";
 	
 	cout << "\nbubble sort: ";
 	BubbleSort(a);
@@ -330,14 +303,6 @@ int main() {
 		cout << a[i] << " ";
 	}
 	
-	
-	cout <<"\nmerge sort iterative: ";
-	a = {3, 1, 1, 3, 2};
-	MergeSortIterative(a);
-	for (int i = 0; i < a.size(); i++) {
-		cout << a[i] << " ";
-	}
-	
 	cout <<"\nshaker sort: ";
 	a = {3, 1, 1, 3, 2};
 	ShakerSort(a);
@@ -347,7 +312,7 @@ int main() {
 	
 	cout <<"\nheap sort: ";
 	a = {3, 1, 1, 3, 2};
-	HeapSort(a, a.size());
+	//HeapSort2(a, a.size());
 	for (int i = 0; i < a.size(); i++) {
 		cout << a[i] << " ";
 	}

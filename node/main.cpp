@@ -6,8 +6,7 @@
 
 using namespace std;
 
-
-struct Node {
+struct Node {	
 	Node* next;
 	int& data;
 	Node(int& _data) : next(nullptr), data(_data) {}
