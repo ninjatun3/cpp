@@ -14,7 +14,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=root
-Date                   :=01/11/24
+Date                   :=05/11/24
 CodeLitePath           :=/root/.codelite
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=../build-$(ConfigurationName)/circular_list/circ_list.cpp$(ObjectSuffix) ../build-$(ConfigurationName)/circular_list/main.cpp$(ObjectSuffix) 
+Objects0=../build-$(ConfigurationName)/circular_list/main.cpp$(ObjectSuffix) ../build-$(ConfigurationName)/circular_list/circ_list.cpp$(ObjectSuffix) 
 
 
 
@@ -91,14 +91,6 @@ PreBuild:
 ##
 ## Objects
 ##
-../build-$(ConfigurationName)/circular_list/circ_list.cpp$(ObjectSuffix): circ_list.cpp ../build-$(ConfigurationName)/circular_list/circ_list.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/user/codelite_project/cpp_projects/circular_list/circular_list/circ_list.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/circ_list.cpp$(ObjectSuffix) $(IncludePath)
-../build-$(ConfigurationName)/circular_list/circ_list.cpp$(DependSuffix): circ_list.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT../build-$(ConfigurationName)/circular_list/circ_list.cpp$(ObjectSuffix) -MF../build-$(ConfigurationName)/circular_list/circ_list.cpp$(DependSuffix) -MM circ_list.cpp
-
-../build-$(ConfigurationName)/circular_list/circ_list.cpp$(PreprocessSuffix): circ_list.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) ../build-$(ConfigurationName)/circular_list/circ_list.cpp$(PreprocessSuffix) circ_list.cpp
-
 ../build-$(ConfigurationName)/circular_list/main.cpp$(ObjectSuffix): main.cpp ../build-$(ConfigurationName)/circular_list/main.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/user/codelite_project/cpp_projects/circular_list/circular_list/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 ../build-$(ConfigurationName)/circular_list/main.cpp$(DependSuffix): main.cpp
@@ -106,6 +98,14 @@ PreBuild:
 
 ../build-$(ConfigurationName)/circular_list/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) ../build-$(ConfigurationName)/circular_list/main.cpp$(PreprocessSuffix) main.cpp
+
+../build-$(ConfigurationName)/circular_list/circ_list.cpp$(ObjectSuffix): circ_list.cpp ../build-$(ConfigurationName)/circular_list/circ_list.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/user/codelite_project/cpp_projects/circular_list/circular_list/circ_list.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/circ_list.cpp$(ObjectSuffix) $(IncludePath)
+../build-$(ConfigurationName)/circular_list/circ_list.cpp$(DependSuffix): circ_list.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT../build-$(ConfigurationName)/circular_list/circ_list.cpp$(ObjectSuffix) -MF../build-$(ConfigurationName)/circular_list/circ_list.cpp$(DependSuffix) -MM circ_list.cpp
+
+../build-$(ConfigurationName)/circular_list/circ_list.cpp$(PreprocessSuffix): circ_list.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) ../build-$(ConfigurationName)/circular_list/circ_list.cpp$(PreprocessSuffix) circ_list.cpp
 
 
 -include ../build-$(ConfigurationName)/circular_list//*$(DependSuffix)

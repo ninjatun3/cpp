@@ -14,7 +14,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=root
-Date                   :=04/11/24
+Date                   :=05/11/24
 CodeLitePath           :=/root/.codelite
 LinkerName             :=g++
 SharedObjectLinkerName :=g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=./build-$(ConfigurationName)//backup.cpp$(ObjectSuffix) ./build-$(ConfigurationName)//main.cpp$(ObjectSuffix) 
+Objects0=./build-$(ConfigurationName)//main.cpp$(ObjectSuffix) ./build-$(ConfigurationName)//backup.cpp$(ObjectSuffix) 
 
 
 
@@ -91,14 +91,6 @@ PreBuild:
 ##
 ## Objects
 ##
-./build-$(ConfigurationName)//backup.cpp$(ObjectSuffix): backup.cpp ./build-$(ConfigurationName)//backup.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/user/codelite_project/cpp_projects/examples/backup.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/backup.cpp$(ObjectSuffix) $(IncludePath)
-./build-$(ConfigurationName)//backup.cpp$(DependSuffix): backup.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT./build-$(ConfigurationName)//backup.cpp$(ObjectSuffix) -MF./build-$(ConfigurationName)//backup.cpp$(DependSuffix) -MM backup.cpp
-
-./build-$(ConfigurationName)//backup.cpp$(PreprocessSuffix): backup.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) ./build-$(ConfigurationName)//backup.cpp$(PreprocessSuffix) backup.cpp
-
 ./build-$(ConfigurationName)//main.cpp$(ObjectSuffix): main.cpp ./build-$(ConfigurationName)//main.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/user/codelite_project/cpp_projects/examples/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
 ./build-$(ConfigurationName)//main.cpp$(DependSuffix): main.cpp
@@ -106,6 +98,14 @@ PreBuild:
 
 ./build-$(ConfigurationName)//main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) ./build-$(ConfigurationName)//main.cpp$(PreprocessSuffix) main.cpp
+
+./build-$(ConfigurationName)//backup.cpp$(ObjectSuffix): backup.cpp ./build-$(ConfigurationName)//backup.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/user/codelite_project/cpp_projects/examples/backup.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/backup.cpp$(ObjectSuffix) $(IncludePath)
+./build-$(ConfigurationName)//backup.cpp$(DependSuffix): backup.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT./build-$(ConfigurationName)//backup.cpp$(ObjectSuffix) -MF./build-$(ConfigurationName)//backup.cpp$(DependSuffix) -MM backup.cpp
+
+./build-$(ConfigurationName)//backup.cpp$(PreprocessSuffix): backup.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) ./build-$(ConfigurationName)//backup.cpp$(PreprocessSuffix) backup.cpp
 
 
 -include ./build-$(ConfigurationName)///*$(DependSuffix)

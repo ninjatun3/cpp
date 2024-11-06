@@ -94,7 +94,6 @@
   </Settings>
   <VirtualDirectory Name="src">
     <File Name="circ_list.cpp"/>
-    <File Name="circ_list.h"/>
     <File Name="main.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
