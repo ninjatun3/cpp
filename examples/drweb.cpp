@@ -11,7 +11,7 @@ void TrimRightString(string&);
 template <typename T>
 void _testTrimRight(void(*)(T), const size_t&);
 
-// вариант реализации 1
+// вариант реализации 
 void TrimRight(char* s) {
 	// проверяем чтобы строка была непустой
 	if (!*s) { 
@@ -30,7 +30,7 @@ void TrimRight(char* s) {
 	}
 }
 
-// вариант реализации через std::string
+// вариант реализации 2 через std::string
 void TrimRightString(string& s) {
 	// проверяем чтобы строка была непустой
 	if (!s.size()) { 

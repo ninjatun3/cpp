@@ -7,13 +7,13 @@ using namespace std;
 class A
 {
     public:
-    virtual int get(void){ return 0;};
+	int get(void){ return 0;};
 };
 
 class B: public A
 {
     public:
-    virtual int get(void) override { return 1;};
+    int get(void) { return 1;};
 };
 
 int main() {
